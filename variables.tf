@@ -11,5 +11,6 @@ variable "address_prefix" {}
 variable "web01_ip_address" {}
 variable "web02_ip_address" {}
 variable "oracle01_ip_address" {}
+variable "WebTierLB_ip_address" {}
 variable "subnet_inside_name" {}
 variable "address_prefix_inside" {}
