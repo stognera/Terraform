@@ -1,3 +1,5 @@
+This will build 2 front in RedHat Enterprise servers, a load balancer for them, a RHEL Oracle DB server, a preconfigured Puppet Enterprise server and a preconfigured Jenkins server in Azure.
+
 # Terraform
 
 Install Terraform locally (https://www.terraform.io/downloads.html)
@@ -72,5 +74,5 @@ az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/SUBSCRIPT
 2) We setup our servers and other resources using Puppet to automate servers configuration
 3) We finish setting up Jenkins/Gerrit to automate our builds and code review.
 
-At this point you are using Terraform to build your cloud setup, github for source control, Puppet for infrastructure as code, Jenkins/Gerrit for continuous integration.
-# We have DevOps! 
+At this point you are using Terraform to build our cloud setup, github for source control, a configured Puppet Server for infrastructure as code, Jenkins/Gerrit for continuous integration.
+# We have DevOps!

@@ -1,3 +1,5 @@
+#This file will use existing networks in Azure and build out servers. This can be modified to create networks as well.
+#
 #import existing networks
 resource "azurerm_subnet" "dmz" {
   address_prefix       = "${var.address_prefix}"
@@ -59,6 +61,19 @@ resource "azurerm_network_interface" "puppetnic" {
         subnet_id                     = "${azurerm_subnet.inside.id}"
         private_ip_address_allocation = "static"
         private_ip_address            = "${var.puppet_ip_address}"
+    }
+}
+
+resource "azurerm_network_interface" "jenkinsnic" {
+    name                = "jenkinsnic"
+    location            = "East US"
+    resource_group_name = "${azurerm_resource_group.Adam.name}"
+
+    ip_configuration {
+        name                          = "jenkinsipconf"
+        subnet_id                     = "${azurerm_subnet.inside.id}"
+        private_ip_address_allocation = "static"
+        private_ip_address            = "${var.jenkins_ip_address}"
     }
 }
 
@@ -234,6 +249,55 @@ resource "azurerm_virtual_machine" "puppet" {
 
   os_profile {
     computer_name  = "puppetadam"
+    admin_username = "${var.localadmin}"
+    admin_password = "${var.localadminpw}"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
+
+  tags {
+    environment = "dev"
+  }
+}
+#Create Jenkis/Gerrot Server
+resource "azurerm_virtual_machine" "jenkins" {
+  name                  = "jenkins"
+  location              = "East US"
+  resource_group_name   = "Adam"
+  network_interface_ids = ["${azurerm_network_interface.jenkinsnic.id}"]
+  vm_size               = "Standard_DS1_v2"
+
+  storage_image_reference {
+    publisher = "cloudbees"
+    offer     = "jenkins-enterprise"
+    sku       = "jenkins-enterprise"
+    version   = "17.8.20"
+  }
+  plan {
+    name      = "jenkins-enterprise"
+    product   = "jenkins-enterprise"
+    publisher = "cloudbees"
+  }
+  storage_os_disk {
+    name              = "jenkinsosdisk1"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+  # Optional data disks
+  storage_data_disk {
+    name              = "jenkinsdatadisk_new"
+    managed_disk_type = "Standard_LRS"
+    create_option     = "Empty"
+    lun               = 0
+    disk_size_gb      = "1"
+  }
+
+  os_profile {
+    computer_name  = "jenkinsadam"
     admin_username = "${var.localadmin}"
     admin_password = "${var.localadminpw}"
   }
