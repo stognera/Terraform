@@ -8,10 +8,24 @@ Install Terraform locally (https://www.terraform.io/downloads.html)
  Create a local variables file called terraform.tfvars in the github dir and add that file to your gitignore
  terraform.tfvars example:
  #Azure variables
- subscription_id = "your sub id"
- client_id       = your client id"
- client_secret   = "your secret"
- tenant_id       = "your tenant id"
+ subscription_id                 = "xxxxx-xxxx-xxxx-xxxx-xxxx"
+ client_id                       = "xxxxx-xxxx-xxxx-xxxx-xxxx"
+ client_secret                   = "xxxxx-xxxxx-xxxx-xxxx-xxxxx"
+ tenant_id                       = "xxxxxx-xxxx-4cxxxx4c-xxxxx-xxxx"
+ localadmin                      = "username"
+ localadminpw                    = "password"
+ resource_group_name             = "Name"
+ virtual_network_name            = "name"
+ subnet_dmz_name                 = "name"
+ address_prefix                  = "10.0.200.0/23"
+ web01_ip_address                = "10.0.200.20"
+ web02_ip_address                = "10.0.200.21"
+ oracle01_ip_address             = "10.0.202.250"
+ WebTierLB_ip_address            = "10.0.200.22"
+ puppet_ip_address               = "10.0.202.251"
+ jenkins_ip_address               = "10.0.202.252"
+ address_prefix_inside           = "10.0.202.0/23"
+ subnet_inside_name              = "Name"
 
 
 
