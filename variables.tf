@@ -1,3 +1,4 @@
+#Holds our variable calls to our tvvars file
 variable "subscription_id" {}
 variable "client_id" {}
 variable "client_secret" {}

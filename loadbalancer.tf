@@ -1,8 +1,9 @@
+#Creates a load balancer in Azure for our front end servers
 resource "azurerm_public_ip" "WebTierLBIP" {
   name                          = "PrivateIPForLB"
   location                      = "East US"
   resource_group_name           = "${var.resource_group_name}"
-  public_ip_address_allocation = "static"
+  public_ip_address_allocation  = "static"
 }
 resource "azurerm_lb" "WebTierLB" {
   name                = "WebTierLoadBalancer"
