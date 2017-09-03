@@ -1,11 +1,11 @@
-This will build 2 front in RedHat Enterprise servers, a load balancer for them, a RHEL Oracle DB server, a preconfigured Puppet Enterprise server and a preconfigured Jenkins server in Azure.
+This will build 2 front end RedHat Enterprise servers, a load balancer for them, a RHEL Oracle DB server, a preconfigured Puppet Enterprise server and a preconfigured Jenkins server in Azure.
 
 # Terraform
 
 Install Terraform locally (https://www.terraform.io/downloads.html)
  - Intialize Terraform (terraform init in your github dir)
 
- Create a local variables file called terraform.tfvars in the github dir and add that file to your gitignore
+ Create a local variables file called terraform.tfvars in the github dir and add copy my .gitignore
  terraform.tfvars example:
  #Azure variables
  subscription_id                 = "xxxxx-xxxx-xxxx-xxxx-xxxx"
