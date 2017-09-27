@@ -261,13 +261,14 @@ resource "azurerm_virtual_machine" "puppet" {
     environment = "dev"
   }
 }
-#Create Jenkis/Gerrot Server
+#Create jenkins/Gerrit Server
 resource "azurerm_virtual_machine" "jenkins" {
   name                  = "jenkins"
   location              = "East US"
   resource_group_name   = "Adam"
   network_interface_ids = ["${azurerm_network_interface.jenkinsnic.id}"]
   vm_size               = "Standard_DS1_v2"
+  depends_on            = ["azurerm_virtual_machine.puppet"]
 
   storage_image_reference {
     publisher = "cloudbees"
@@ -282,9 +283,9 @@ resource "azurerm_virtual_machine" "jenkins" {
   }
   storage_os_disk {
     name              = "jenkinsosdisk1"
-    caching           = "ReadWrite"
+    #caching           = "ReadWrite"
     create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
+    managed_disk_type = "Premium_LRS"
   }
 
   os_profile {
